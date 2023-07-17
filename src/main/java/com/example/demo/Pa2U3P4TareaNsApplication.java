@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,18 +8,25 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.example.demo.repository.modelo.CuentaBancaria;
 import com.example.demo.repository.modelo.Factura;
 import com.example.demo.repository.modelo.Persona;
+import com.example.demo.repository.modelo.Propietario;
+import com.example.demo.repository.modelo.Transferencia;
 import com.example.demo.service.FacturaService;
+import com.example.demo.service.ICuentaBancariaService;
+import com.example.demo.service.ITransferenciaService;
 import com.example.demo.service.PersonaService;
 
 @SpringBootApplication
 public class Pa2U3P4TareaNsApplication implements CommandLineRunner{
-	@Autowired
-	private PersonaService personaService;
 	
 	@Autowired
-	private FacturaService facturaService;
+	private ICuentaBancariaService bancariaService;
+	
+	@Autowired
+	private ITransferenciaService iTransferenciaService;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U3P4TareaNsApplication.class, args);
 	}
@@ -26,58 +34,38 @@ public class Pa2U3P4TareaNsApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-
-		List<Persona> myLista1 = this.personaService.buscarInnerJoin();
-		for (Persona p : myLista1) {
-			System.out.println(p);
-		}
-		List<Persona> myLista2 = this.personaService.buscarOuterLeftJoin();
-		for (Persona p : myLista2) {
-			System.out.println(p);
-		}
-		List<Persona> myLista3 = this.personaService.buscarJoinWhere();
-		for (Persona p : myLista3) {
-			System.out.println(p);
-		}
+		Propietario p1= new Propietario();
+		p1.setApellido("Soria");
+		p1.setCedula("1750932893");
+		p1.setNombre("Nelson");
 		
-		List<Persona> myLista4= this.personaService.buscarOuterFullJoin();
-		for (Persona p : myLista4) {
-			System.out.println(p);
-		}
+		Propietario p2= new Propietario();
+		p2.setApellido("Paredes");
+		p2.setCedula("158904344");
+		p2.setNombre("Patricio");
+		
+		CuentaBancaria cta1=new CuentaBancaria();
+		cta1.setNumero("001");
+		cta1.setSaldo(new BigDecimal(50));
+		cta1.setTipo('A');
+		cta1.setPropietario(p1);
+		
+		CuentaBancaria cta2=new CuentaBancaria();
+		cta2.setNumero("002");
+		cta2.setSaldo(new BigDecimal(70));
+		cta2.setTipo('A');
+		cta2.setPropietario(p2);
 	
-	    List<Persona> myLista5 = this.personaService.buscarOuterRightJoin();
-	    for (Persona p : myLista5) {
-			System.out.println(p);
-		}
-		List<Factura> myLista6 = this.facturaService.buscarInnerJoin();
-		for (Factura f : myLista6) {
-			System.out.println(f);
-		}
-		List<Factura> myLista7 = this.facturaService.buscarOuterRightJoin();
-		for (Factura f : myLista7) {
-			System.out.println(f);
-		}
-		List<Factura> myLista8 = this.facturaService.buscarOuterLeftJoin();
-		for (Factura f : myLista8) {
-			System.out.println(f);
-		}
-		List<Factura> myLista9 = this.facturaService.buscarOuterFullJoin();
-		for (Factura f : myLista9) {
-			System.out.println(f);
-		}
-		List<Factura> myLista10 = this.facturaService.buscarJoinWhere();
-		for (Factura f : myLista10) {
-			System.out.println(f);
-		}
-		List<Persona> myLista11 = this.personaService.buscarJoinFetch();
-		for (Persona p : myLista11) {
-			System.out.println(p);
+		this.bancariaService.guardar(cta1);
+		this.bancariaService.guardar(cta2);
+		this.iTransferenciaService.realizarTransferencia("001", "002", new BigDecimal(30));
+		this.iTransferenciaService.realizarTransferencia("002", "001", new BigDecimal(20));
+		List<Transferencia> trans=this.iTransferenciaService.reporte();
+		for(Transferencia t:trans) {
+			System.err.println(t);
 		}
 		
-		List<Factura> myLista12 = this.facturaService.buscarJoinFetch();
-		for (Factura f : myLista12) {
-			System.out.println(f);
-		}
+		
 	}
 
 }
