@@ -1,5 +1,9 @@
 package com.example.demo.funcional;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,47 +12,31 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		// Predicate
+	
+		
+		//******************* Interfaces Funcionales Java ******
+				//1. Supplier
+		     
+				Stream<String> lista = Stream.generate(MetodosReferenciados::getIdHO).limit(5);
+				lista.forEach(cadena->LOG.info(cadena));
+		
+				//2. Consumer
+				List<Integer> listaNumeros= Arrays.asList(4,5,6,7,8,9,10,11,12,20);
+				listaNumeros.forEach(MetodosReferenciados::aceptarConsumer);
 
-		// 1. Clase
+				//3. Predicate
 
-		MetodosHighOrder.metodoPredicate(new PersonaPredicateImpl(), 23);
+				Stream <Integer> listaFinal = listaNumeros.stream().filter(MetodosReferenciados::evaluar);
+				listaFinal.forEach(numero -> LOG.info("Valor:" + numero));
 
-		// 2. Lambdas
-		MetodosHighOrder.metodoPredicate(valor -> valor.compareTo(8) > 0, 20);
+				//4. Function
+				Stream <String> listaCambiada = listaNumeros.stream().map(MetodosReferenciados::aplicarFunction);
+				listaCambiada.forEach(cadena -> LOG.info(cadena));
 
-		// 3. Metodos referenciados
-		MetodosHighOrder.metodoPredicate(MetodosReferenciados::evaluar, 80);
+				//5. UnaryOperator
 
-		// Function
-
-		// 1. Clase
-
-		MetodosHighOrder.metodoFunction(new PersonaFunctionImpl(), 400);
-
-		// 2. Lambdas
-		MetodosHighOrder.metodoFunction(numero -> {
-			String valorFinal = numero.toString().concat("Valor");
-			return valorFinal;
-		}, 100000);
-
-		// 3. Metodos referenciados
-		MetodosHighOrder.metodoFunction(MetodosReferenciados::aplicarFunction, 8000);
-
-		// UnaryOperator
-
-		// 1. Clase
-
-		MetodosHighOrder.metodoUnaryOperator(new PersonaUnaryOperatorImpl(), " Nelsooon");
-
-		// 2. Lambdas
-		MetodosHighOrder.metodoUnaryOperator(cadena -> {
-			String cadenafinal = cadena.concat(" Soooooria");
-			return cadenafinal;
-		}, "Nelson");
-
-		// 3. Metodos referenciados
-		MetodosHighOrder.metodoUnaryOperator(MetodosReferenciados::aplicarUnary, " Paredes");
+				Stream <Integer> listaCambiada2 = listaNumeros.stream().map(MetodosReferenciados::aplicarUnary2);
+			 	listaCambiada2.forEach(cadena -> LOG.info(" "+cadena));
 	}
 
 }
