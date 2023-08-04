@@ -4,8 +4,9 @@ public class PersonaFunctionImpl implements IPersonaFunction{
 
 	@Override
 	public Object aplicar(Object arg) {
-		// TODO Auto-generated method stub
-		return null;
+		Integer valor= (Integer) arg;
+		String aux= "Function".concat(String.valueOf(valor));
+		return aux;
 	}
 
 }

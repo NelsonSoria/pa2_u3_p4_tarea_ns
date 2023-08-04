@@ -4,8 +4,9 @@ public class PersonaUnaryOperatorImpl implements IPersonaUnaryOperator{
 
 	@Override
 	public Object aplicar(Object arg) {
-		// TODO Auto-generated method stub
-		return null;
+		String aux= (String)arg;
+		aux.concat(" zzzzzzzzz ");
+		return aux;
 	}
 
 }

@@ -6,15 +6,14 @@ import org.slf4j.LoggerFactory;
 public class MetodosReferenciados {
 	private static final Logger LOG = LoggerFactory.getLogger(MetodosReferenciados.class);
 
-	public Integer getId() {
+	public static Integer getId() {
 		return 8;
 	}
-	public void aceptar(String arg) {
+	public static void aceptar(String arg) {
 		String cadena = "Nelson";
 		LOG.info(cadena+ " "+ arg);
 	}
-	public boolean evaluar(Integer arg) {
-		
+	public static  boolean evaluar(Integer arg) {	
 		if(arg.compareTo(100)<0) {
 			return true;
 		}else {
@@ -23,15 +22,17 @@ public class MetodosReferenciados {
 		
 		
 	}
-	public String aplicarFunction(Integer arg) {
+	public static  String aplicarFunction(Integer arg) {
 		String aux ="Nelson".concat(String.valueOf(arg));
-		
 		return aux;
-				
 	}
 	
-	public String aplicarUnary(String arg) {	
+	public static String aplicarUnary(String arg) {	
 		String aux="Soria".concat(arg);
 		return aux;
+	}
+	public static String getIdHO() {
+		LOG.info("Metodos referenciado y HO");
+		return "Nelson Soria";
 	}
 }
