@@ -5,8 +5,8 @@ public class PersonaSupplierImpl implements IPersonaSupplier{
 
 	@Override
 	public String getId() {
-		 String cedula="1564156";
-		 cedula = cedula+"zzzzzzzzzz";
+		 String cedula="Nelson";
+		 cedula = cedula+" Soria";
 		return cedula;
 	}
 

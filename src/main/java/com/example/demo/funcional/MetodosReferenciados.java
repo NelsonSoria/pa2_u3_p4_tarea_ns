@@ -25,7 +25,6 @@ public class MetodosReferenciados {
 		}else {
 			return false;
 		}
-		
 	}
 	public static  String aplicarFunction(Integer arg) {
 		String aux ="Nelson".concat(String.valueOf(arg));
